@@ -26,7 +26,7 @@ public class Creature
             name = value;
         }
     }
-    private int level;
+    private int level=1;
     public int Level
     {
         get { return level; }
