@@ -18,7 +18,7 @@ public class Animals
 
             value = value.Trim();
 
-            if (value.Length > 25)
+            if (value.Length > 15)
                 value = value.Substring(0, 15).TrimEnd();
             if (value.Length < 3)
                 value = value.PadRight(3, '#');
