@@ -9,19 +9,42 @@ namespace Simulator;
 
 public class Creature
 {
-    private string name;
+    private string name="Unknown";
     public string Name
     {
         get { return name; }
-        init { name = value; }
+        init {
+
+            value = value.Trim();
+
+            if (value.Length > 25)
+                value = value.Substring(0, 25).TrimEnd();
+            if (value.Length < 3)
+                value = value.PadRight(3, '#');
+            if (char.IsLower(value[0]))
+                value = char.ToUpper(value[0]) + value.Substring(1);
+            name = value;
+        }
     }
     private int level;
     public int Level
     {
         get { return level; }
-        set { level = value > 0 ? value : 1; }
+        set 
+        {
+            if (value < 1)
+                value = 1;
+            else if (value > 10)
+                value = 10;
+            level = value;
+        }
     }
-    public Creature(string name, int level = 1)
+    public void Upgrade()
+    {
+        if (Level < 10)
+            Level++;
+    }
+    public Creature(string name, int level=1)
     {
         Name = name;
         Level = level;
