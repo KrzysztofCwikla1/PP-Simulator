@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Simulator;
 
-public class Creature
+public abstract class Creature
 {
     private string name="Unknown";
     public string Name
@@ -26,7 +26,7 @@ public class Creature
             name = value;
         }
     }
-    private int level;
+    private int level=1;
     public int Level
     {
         get { return level; }
@@ -54,10 +54,8 @@ public class Creature
     {
         get { return $"{Name} [{Level}]"; }
     }
-    public void SayHi()
-    {
-        Console.WriteLine($"Hi, I'm {Name}, my level is {Level}.");
-    }
+    public abstract void SayHi();
+    public abstract int Power{ get; }
     public void Go(Direction direction)
     {
         Console.WriteLine($"{Name} goes {direction.ToString().ToLower()}.");
