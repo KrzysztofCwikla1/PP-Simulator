@@ -14,11 +14,7 @@ public class Orc : Creature
         get { return rage; }
         set
         {
-            if (value < 1)
-                value = 1;
-            else if (value > 10)
-                value = 10;
-            rage = value;
+            rage = Validator.Limiter(value, 0, 10);
         }
     }
     public override void SayHi()
@@ -26,6 +22,14 @@ public class Orc : Creature
         Console.WriteLine
         ($"Hi, I'm {Name}, my level is {Level}, my rage is {Rage}.");
     }
+    public override string Info
+    {
+        get
+        {
+            return $"{Name} [{Level}][{Rage}]";
+        }
+    }
+
     private int huntCounter;
     public void Hunt()
     {

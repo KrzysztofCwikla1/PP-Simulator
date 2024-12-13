@@ -16,11 +16,7 @@ public class Elf : Creature
         get { return agility; }
         set
         {
-            if (value < 1)
-                value = 1;
-            else if (value > 10)
-                value = 10;
-            agility = value;
+            agility = Validator.Limiter(value, 0, 10);
         }
     }
     public override void SayHi()
@@ -28,6 +24,14 @@ public class Elf : Creature
         Console.WriteLine
         ($"Hi, I'm {Name}, my level is {Level}, my agility is {Agility}.");
     }
+    public override string Info
+    {
+        get
+        {
+            return $"{Name} [{Level}][{Agility}]";
+        }
+    }
+
     public int singCounter;
     public void Sing()
     {
