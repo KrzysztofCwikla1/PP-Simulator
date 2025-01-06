@@ -5,8 +5,9 @@ internal class Program
     static void Main(string[] args)
     {
         Console.WriteLine("Starting Simulator!\n");
-        Lab4a();
-        Lab4b();
+        Lab5a();
+        //Lab5b();
+        Console.ReadKey();
     }
     static void Lab4a()
     {
@@ -59,4 +60,25 @@ internal class Program
             ORC: Morgash [6][4]
         */
     }
+    public static void Lab5a()
+    {
+            var rect1 = new Rectangle(10, 10, 5, 5);
+            var rect2 = new Rectangle(new Point(12, 3), new Point(8, 15));
+            
+
+            Console.WriteLine(rect1);
+            Console.WriteLine(rect2);
+
+            var point = new Point(6, 6);
+            Console.WriteLine(rect1.Contains(point));
+            Console.WriteLine(rect2.Contains(point)); 
+        try { 
+            var rect3 = new Rectangle(5, 5, 5, 5); 
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine($"Exception caught: {ex.Message}");
+        }
+    }
+
 }
