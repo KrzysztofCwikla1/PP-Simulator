@@ -6,7 +6,7 @@ internal class Program
     {
         Console.WriteLine("Starting Simulator!\n");
         Lab5a();
-        //Lab5b();
+        Lab5b();
         Console.ReadKey();
     }
     static void Lab4a()
@@ -80,5 +80,21 @@ internal class Program
             Console.WriteLine($"Exception caught: {ex.Message}");
         }
     }
+    public static void Lab5b()
+    {
+            var map = new Simulator.Maps.SmallSquareMap(10);
 
+            var point = new Point(3, 3);
+            Console.WriteLine(map.Exist(point));
+            Console.WriteLine(map.Next(point, Direction.Right)); // (4, 3)
+            Console.WriteLine(map.Next(point, Direction.Up)); // (3, 4)
+            Console.WriteLine(map.NextDiagonal(point, Direction.Right)); // (4, 2)
+            var edgePoint = new Point(9, 9);
+            Console.WriteLine(map.Next(edgePoint, Direction.Up)); // (9, 9)
+        try { var map2 = new Simulator.Maps.SmallSquareMap(25); }
+        catch (ArgumentOutOfRangeException ex)
+        {
+            Console.WriteLine($"Exception caught: {ex.Message}");
+        }
+    }
 }
