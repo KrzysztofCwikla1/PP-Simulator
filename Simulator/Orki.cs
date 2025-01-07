@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Simulator;
+﻿namespace Simulator;
 
 public class Orc : Creature
 {
@@ -17,10 +11,10 @@ public class Orc : Creature
             rage = Validator.Limiter(value, 0, 10);
         }
     }
-    public override void SayHi()
+    public override string Greeting()
     {
-        Console.WriteLine
-        ($"Hi, I'm {Name}, my level is {Level}, my rage is {Rage}.");
+        string message = $"Hi, I'm {Name}, my level is {Level}, my rage is {Rage}.";
+        return message;             
     }
     public override string Info
     {
@@ -42,7 +36,6 @@ public class Orc : Creature
                 Rage = 10;
         }
 
-        Console.WriteLine($"{Name} is hunting.");
     }
     public override int Power
     {

@@ -19,10 +19,10 @@ public class Elf : Creature
             agility = Validator.Limiter(value, 0, 10);
         }
     }
-    public override void SayHi()
+    public override string Greeting()
     {
-        Console.WriteLine
-        ($"Hi, I'm {Name}, my level is {Level}, my agility is {Agility}.");
+        string message = $"Hi, I'm {Name}, my level is {Level}, my agility is {Agility}.";
+        return message;
     }
     public override string Info
     {
@@ -43,7 +43,6 @@ public class Elf : Creature
             if (Agility > 10)
                 Agility = 10;
         }
-        Console.WriteLine($"{Name} is singing.");
     }
     public override int Power
     {

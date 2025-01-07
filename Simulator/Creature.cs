@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Simulator;
+﻿namespace Simulator;
 
 public abstract class Creature
 {
@@ -40,23 +33,20 @@ public abstract class Creature
     }
     public Creature(){}
     public abstract string Info { get; }
-    public abstract void SayHi();
+    public abstract string Greeting();
     public abstract int Power{ get; }
-    public void Go(Direction direction)
+    public string Go(Direction direction) => $"{direction.ToString().ToLower()}";
+
+    public string[] Go(Direction[] directions)
     {
-        Console.WriteLine($"{Name} goes {direction.ToString().ToLower()}.");
+        return directions.Select(Go).ToArray();
     }
 
-    public void Go(Direction[] directions)
-    {
-        foreach (var direction in directions)
-            Go(direction);
-    }
 
-    public void Go(string input)
+    public string[] Go(string input)
     {
         var directions = DirectionParser.Parse(input);
-        Go(directions);
+        return Go(directions); 
     }
     public override string ToString()
     {
