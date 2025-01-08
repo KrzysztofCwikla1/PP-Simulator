@@ -37,10 +37,7 @@ public abstract class Creature
     public abstract int Power{ get; }
     public string Go(Direction direction) => $"{direction.ToString().ToLower()}";
 
-    public string[] Go(Direction[] directions)
-    {
-        return directions.Select(Go).ToArray();
-    }
+    public string[] Go(Direction[] directions) => directions.Select(Go).ToArray();
 
 
     public string[] Go(string input)
@@ -48,8 +45,5 @@ public abstract class Creature
         var directions = DirectionParser.Parse(input);
         return Go(directions); 
     }
-    public override string ToString()
-    {
-        return $"{GetType().Name.ToUpper()}: {Info}";
-    }
+    public override string ToString() => $"{GetType().Name.ToUpper()}: {Info}";
 }

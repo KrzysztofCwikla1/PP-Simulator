@@ -4,7 +4,7 @@ namespace Simulator.Maps
 {
     public class SmallSquareMap : Map
     {
-        public int Size { get; }
+        public readonly int Size;
 
         public SmallSquareMap(int size)
         {
