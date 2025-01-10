@@ -43,5 +43,18 @@ public abstract class Map
     /// rotated 45 degrees clockwise.
     /// </summary>
     public abstract Point NextDiagonal(Point p, Direction d);
+    
+    public abstract void Add(Creature creature, Point position);
+
+   
+    public abstract void Remove(Creature creature, Point position);
+
+    
+    public abstract void Move(Creature creature, Point oldPosition, Point newPosition);
+
+    
+   
+
+    public abstract List<Creature> At(Point position);
 }
 

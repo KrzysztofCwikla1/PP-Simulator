@@ -52,12 +52,12 @@ public class SmallTorusMapTests
     [InlineData(20, 10, Direction.Right, 1, 10)]      
     public void Next_ShouldReturnCorrectNextPoint(int x, int y, Direction direction, int expectedX, int expectedY)
     {
-        // Arrange
+       
         var map = new SmallTorusMap(20);
         var point = new Point(x, y);
-        // Act
+        
         var nextPoint = map.Next(point, direction);
-        // Assert
+        
         Assert.Equal(new Point(expectedX, expectedY), nextPoint);
     }
 
@@ -68,12 +68,12 @@ public class SmallTorusMapTests
     [InlineData(20, 10, Direction.Right, 1, 9)]        
     public void NextDiagonal_ShouldReturnCorrectNextPoint(int x, int y, Direction direction, int expectedX, int expectedY)
     {
-        // Arrange
+        
         var map = new SmallTorusMap(20);
         var point = new Point(x, y);
-        // Act
+        
         var nextPoint = map.NextDiagonal(point, direction);
-        // Assert
+        
         Assert.Equal(new Point(expectedX, expectedY), nextPoint);
     }
 }
