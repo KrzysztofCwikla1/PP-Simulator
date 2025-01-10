@@ -25,7 +25,18 @@ public static class DirectionParser
                 directions.Add(Direction.Left);
             }
         }
-        return directions; // Zwracamy List<Direction>
+        return directions;
+    }
+    public static string FullDirectionName(Direction direction)
+    {
+        return direction switch
+        {
+            Direction.Up => "up",
+            Direction.Right => "right",
+            Direction.Down => "down",
+            Direction.Left => "left",
+            _ => "unknown"
+        };
     }
 }
 

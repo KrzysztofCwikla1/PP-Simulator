@@ -67,6 +67,12 @@ public class Simulation
         Creatures = creatures;
         Positions = positions;
         Moves = moves;
+
+        // Przypisanie mapy i początkowych pozycji dla każdego stwora
+        for (int i = 0; i < creatures.Count; i++)
+        {
+            creatures[i].AssignMap(map, positions[i]);  // Przypisujemy mapę i początkową pozycję
+        }
     }
 
     private int moveIndex = 0;
