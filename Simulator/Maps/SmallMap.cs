@@ -12,9 +12,7 @@ public class SmallMap : Map
             throw new ArgumentOutOfRangeException("SmallMap size can't exceed 20x20.");
     }
 
-    // Implementacja metod mapy:
-
-    // Dodanie stworzenia na mapie
+    
     public override void Add(Creature creature, Point position)
     {
         if (!Exist(position))

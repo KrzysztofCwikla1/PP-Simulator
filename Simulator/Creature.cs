@@ -45,7 +45,6 @@ namespace Simulator
         public Map? CurrentMap { get; set; }
         public Point CurrentPosition { get; set; }
 
-        // Metoda Go() zmienia pozycję stwora na mapie
         public string Go(Direction direction)
         {
             if (CurrentMap == null)
@@ -53,10 +52,9 @@ namespace Simulator
 
             var newPosition = CurrentPosition.Next(direction);
 
-            // Jeśli nowa pozycja jest w obrębie mapy
             if (CurrentMap.Exist(newPosition))
             {
-                // Przemieszczenie stworzenia na nową pozycję
+                
                 CurrentMap.Move(this, CurrentPosition, newPosition);
                 CurrentPosition = newPosition;
                 return $"Moved {direction.ToString().ToLower()} to {newPosition}.";
