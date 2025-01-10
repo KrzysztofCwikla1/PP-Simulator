@@ -1,4 +1,5 @@
-﻿namespace Simulator;
+﻿
+namespace Simulator;
 
 public class Birds : Animals
 {
@@ -6,10 +7,33 @@ public class Birds : Animals
 
     public override string Info
     {
-        get
+        get => $"{Description} (fly{(CanFly ? "+" : "-")}) <{Size}>";
+    }
+
+    public override string Go(Direction direction)
+    {
+        if (CurrentMap == null)
+            throw new InvalidOperationException("Bird is not assigned to a map.");
+
+        Point newPosition;
+
+        if (CanFly)
         {
-            return $"{Description} (fly{(CanFly ? "+" : "-")}) <{Size}>";
+            newPosition = CurrentMap.Next(CurrentPosition, direction);
+            newPosition = CurrentMap.Next(newPosition, direction);
         }
+        else
+        {
+            newPosition = CurrentMap.NextDiagonal(CurrentPosition, direction);
+        }
+
+        if (CurrentMap.Exist(newPosition))
+        {
+            CurrentMap.Move(this, CurrentPosition, newPosition);
+            CurrentPosition = newPosition;
+            return $"Bird moved {(CanFly ? "two steps" : "diagonally")} to {newPosition}.";
+        }
+
+        return "Bird cannot move outside the map boundaries.";
     }
 }
-

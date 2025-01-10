@@ -44,10 +44,13 @@ public class MapVisualizer
                     {
                         Orc _ => 'O',
                         Elf _ => 'E',
-                        _ => '?' 
+                        Birds bird => bird.CanFly ? 'B' : 'b',
+                        Animals _ => 'A',
+                        _ => '?'
                     },
                     _ => 'X'
                 };
+
                 Console.Write(symbol);
                 Console.Write(Box.Vertical);
             }

@@ -8,19 +8,21 @@ namespace Tests
         [Fact]
         public void TestSmallSquareMapCreation()
         {
-            int size = 10;
-           
-            var map = new SmallSquareMap(size);
+            int sizeX = 10;
+            int sizeY = 10;
 
-           
-            Assert.Equal(size, map.SizeX);  
-            Assert.Equal(size, map.SizeY);  
+            // Act
+            var map = new SmallSquareMap(sizeX, sizeY);
+
+            // Assert
+            Assert.Equal(sizeX, map.SizeX);
+            Assert.Equal(sizeY, map.SizeY);
         }
 
         [Fact]
         public void TestSmallSquareMapExist()
         {
-            var map = new SmallSquareMap(10);
+            var map = new SmallSquareMap(10,10);
             var pointInside = new Point(5, 5);
             var pointOutside = new Point(10, 10);
 
@@ -31,7 +33,7 @@ namespace Tests
         [Fact]
         public void TestSmallSquareMapNext()
         {
-            var map = new SmallSquareMap(10);
+            var map = new SmallSquareMap(10, 10);
             var point = new Point(5, 5);
 
             var up = map.Next(point, Direction.Up);
@@ -47,7 +49,7 @@ namespace Tests
         [Fact]
         public void TestSmallSquareMapNextDiagonal()
         {
-            var map = new SmallSquareMap(10);
+            var map = new SmallSquareMap(10, 10);
             var point = new Point(5, 5);
 
             var upRight = map.NextDiagonal(point, Direction.Up);
@@ -63,7 +65,7 @@ namespace Tests
         [Fact]
         public void TestSmallSquareMapExistEdge()
         {
-            var map = new SmallSquareMap(10);
+            var map = new SmallSquareMap(10,10);
             var edgePoint = new Point(9, 9);
             Assert.True(map.Exist(edgePoint));
             var outsidePoint = new Point(10, 10);
@@ -73,7 +75,7 @@ namespace Tests
         [Fact]
         public void TestSmallSquareMapNextAtEdge()
         {
-            var map = new SmallSquareMap(10);
+            var map = new SmallSquareMap(10, 10);
             var edgePoint = new Point(9, 9);
             var up = map.Next(edgePoint, Direction.Up);
             Assert.Equal(new Point(9, 9), up);
@@ -88,7 +90,7 @@ namespace Tests
         [Fact]
         public void TestSmallSquareMapNextDiagonalAtEdge()
         {
-            var map = new SmallSquareMap(10);
+            var map = new SmallSquareMap(10, 10);
             var edgePoint = new Point(9, 9);
 
             var upRight = map.NextDiagonal(edgePoint, Direction.Up);
@@ -107,11 +109,11 @@ namespace Tests
         public void TestSmallSquareMapCreationWithInvalidSize()
         {
             
-            var ex = Assert.Throws<ArgumentOutOfRangeException>(() => new SmallSquareMap(3));
+            var ex = Assert.Throws<ArgumentOutOfRangeException>(() => new SmallSquareMap(3, 3));
             Assert.Contains("Map can't be smaller than 5x5.", ex.Message);
 
            
-             ex = Assert.Throws<ArgumentOutOfRangeException>(() => new SmallSquareMap(21));
+             ex = Assert.Throws<ArgumentOutOfRangeException>(() => new SmallSquareMap(21, 21));
             Assert.Contains("SmallMap size can't exceed 20x20.", ex.Message);
         }
 
