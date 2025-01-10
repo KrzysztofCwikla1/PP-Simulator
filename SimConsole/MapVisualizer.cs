@@ -2,91 +2,88 @@
 using Simulator;
 
 namespace SimConsole;
-    public class MapVisualizer
+
+public class MapVisualizer
+{
+    private readonly Map _map;
+    private int _turnCounter;
+
+    public MapVisualizer(Map map)
     {
-        private readonly Map _map;
-        private int _turnCounter;
+        _map = map;
+        _turnCounter = 1;
+    }
 
-        public MapVisualizer(Map map)
+    public void Draw(Simulation simulation)
+    {
+        Console.WriteLine("\n");
+        Console.WriteLine($"Turn: {_turnCounter}");
+        Console.WriteLine($"{FormatMoveInfo(simulation)}");
+
+        int width = _map.SizeX;
+        int height = _map.SizeY;
+
+        Console.Write(Box.TopLeft);
+        for (int i = 0; i < width; i++)
         {
-            _map = map;
-            _turnCounter = 1;
+            Console.Write(Box.Horizontal);
+            if (i < width - 1) Console.Write(Box.TopMid);
         }
+        Console.WriteLine(Box.TopRight);
 
-        public void Draw(Simulation simulation)
+        for (int y = 0; y < height; y++)
         {
-            Console.WriteLine("\n");
-            Console.WriteLine($"Turn: {_turnCounter}");
-            Console.WriteLine($"{FormatMoveInfo(simulation)}");
-            
-
-            int width = _map.SizeX;
-            int height = _map.SizeY;
-
-            Console.Write(Box.TopLeft);
-            for (int i = 0; i < width; i++)
+            Console.Write(Box.Vertical);
+            for (int x = 0; x < width; x++)
             {
-                Console.Write(Box.Horizontal);
-                if (i < width - 1) Console.Write(Box.TopMid);
-            }
-            Console.WriteLine(Box.TopRight);
-
-
-            for (int y = 0; y < height; y++)
-            {
+                var mappablesAtPosition = _map.At(new Point(x, y));
+                char symbol = mappablesAtPosition.Count switch
+                {
+                    0 => ' ',
+                    1 => mappablesAtPosition[0] switch
+                    {
+                        Orc _ => 'O',
+                        Elf _ => 'E',
+                        _ => '?' 
+                    },
+                    _ => 'X'
+                };
+                Console.Write(symbol);
                 Console.Write(Box.Vertical);
-                for (int x = 0; x < width; x++)
-                {
-                    var creaturesAtPosition = _map.At(new Point(x, y));
-                    char symbol = creaturesAtPosition.Count switch
-                    {
-                        0 => ' ',
-                        1 => creaturesAtPosition[0] switch
-                        {
-                            Orc _ => 'O',
-                            Elf _ => 'E',
-                            _ => '?'
-                        },
-                        _ => 'X'
-                    };
-                    Console.Write(symbol);
-                    Console.Write(Box.Vertical);
-                }
-                Console.WriteLine();
-
-
-                if (y < height - 1)
-                {
-                    Console.Write(Box.MidLeft);
-                    for (int i = 0; i < width; i++)
-                    {
-                        Console.Write(Box.Horizontal);
-                        if (i < width - 1) Console.Write(Box.Cross);
-                    }
-                    Console.WriteLine(Box.MidRight);
-                }
             }
+            Console.WriteLine();
 
-            Console.Write(Box.BottomLeft);
-            for (int i = 0; i < width; i++)
+            if (y < height - 1)
             {
-                Console.Write(Box.Horizontal);
-                if (i < width - 1) Console.Write(Box.BottomMid);
+                Console.Write(Box.MidLeft);
+                for (int i = 0; i < width; i++)
+                {
+                    Console.Write(Box.Horizontal);
+                    if (i < width - 1) Console.Write(Box.Cross);
+                }
+                Console.WriteLine(Box.MidRight);
             }
-            Console.WriteLine(Box.BottomRight);
-
-            _turnCounter++;
         }
+
+        Console.Write(Box.BottomLeft);
+        for (int i = 0; i < width; i++)
+        {
+            Console.Write(Box.Horizontal);
+            if (i < width - 1) Console.Write(Box.BottomMid);
+        }
+        Console.WriteLine(Box.BottomRight);
+
+        _turnCounter++;
+    }
 
     private string FormatMoveInfo(Simulation simulation)
     {
-        var creature = simulation.CurrentCreature;
-        var position = creature.CurrentPosition;
+        var current = simulation.CurrentMappable; 
+        var position = current.CurrentPosition;
 
-        // Parsujemy obecny ruch na Direction i mapujemy na pełną nazwę.
+
         var direction = DirectionParser.FullDirectionName(DirectionParser.Parse(simulation.CurrentMoveName)[0]);
 
-        return $"{creature.GetType().Name}: {creature.Name},{creature.Level},{creature.Power} ({position.X},{position.Y}) goes {direction}";
+        return $"{current.GetType().Name}: {current.Info} ({position.X},{position.Y}) goes {direction}";
     }
-
 }

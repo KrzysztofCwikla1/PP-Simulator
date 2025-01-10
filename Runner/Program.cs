@@ -11,16 +11,27 @@ internal class Program
         Console.OutputEncoding = Encoding.UTF8;
 
         SmallSquareMap map = new(5);
-        List<Creature> creatures = new() { new Orc("Gorbag"), new Elf("Elandor") };
-        List<Point> positions = new() { new(2, 2), new(3, 1) };
+
+        List<IMappable> mappables = new()
+        {
+            new Orc("Gorbag"),
+            new Elf("Elandor")
+        };
+
+        List<Point> positions = new()
+        {
+            new(2, 2),
+            new(3, 1)
+        };
+
         string moves = "dlrludl";
 
-        Simulation simulation = new(map, creatures, positions, moves);
+        Simulation simulation = new(map, mappables, positions, moves);
+
         MapVisualizer mapVisualizer = new(simulation.Map);
 
         while (!simulation.Finished)
         {
-
             mapVisualizer.Draw(simulation);
 
             Console.WriteLine("\nPress any key to proceed to the next step...");
@@ -37,6 +48,7 @@ internal class Program
             }
         }
 
+        // Finalne rysowanie mapy
         mapVisualizer.Draw(simulation);
         Console.WriteLine("\nSimulation finished. Press any key to exit.");
         Console.ReadKey();

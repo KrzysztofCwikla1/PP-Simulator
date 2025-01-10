@@ -70,7 +70,7 @@ public class SmallMapTests
         map.Add(creature2, position);
 
         // Act
-        var creaturesAtPosition = map.At(2, 2);
+        var creaturesAtPosition = map.At(position);
 
         // Assert
         Assert.Equal(2, creaturesAtPosition.Count);

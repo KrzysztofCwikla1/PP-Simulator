@@ -1,65 +1,56 @@
-﻿namespace Simulator.Maps;
+﻿using System.Drawing;
 
-public class SmallMap : Map
+namespace Simulator.Maps
 {
-    // Struktura danych do przechowywania stworów na mapie (słownik z punktem jako kluczem)
-    private Dictionary<Point, List<Creature>> _creaturesAtPosition;
-
-    public SmallMap(int sizeX, int sizeY) : base(sizeX, sizeY)
+    public class SmallMap : Map
     {
-        _creaturesAtPosition = new Dictionary<Point, List<Creature>>();
-        if (sizeX > 20 || sizeY > 20)
-            throw new ArgumentOutOfRangeException("SmallMap size can't exceed 20x20.");
-    }
+        private Dictionary<Point, List<IMappable>> _mappablesAtPosition;
 
-    
-    public override void Add(Creature creature, Point position)
-    {
-        if (!Exist(position))
-            throw new ArgumentOutOfRangeException("Position is outside the map bounds.");
-
-        if (!_creaturesAtPosition.ContainsKey(position))
-            _creaturesAtPosition[position] = new List<Creature>();
-
-        _creaturesAtPosition[position].Add(creature);
-    }
-
-    // Usunięcie stworzenia z mapy
-    public override void Remove(Creature creature, Point position)
-    {
-        if (_creaturesAtPosition.ContainsKey(position))
+        public SmallMap(int sizeX, int sizeY) : base(sizeX, sizeY)
         {
-            _creaturesAtPosition[position].Remove(creature);
+            _mappablesAtPosition = new Dictionary<Point, List<IMappable>>();
+            if (sizeX > 20 || sizeY > 20)
+                throw new ArgumentOutOfRangeException("SmallMap size can't exceed 20x20.");
         }
-    }
 
-    // Przeniesienie stworzenia z jednej pozycji na drugą
-    public override void Move(Creature creature, Point oldPosition, Point newPosition)
-    {
-        Remove(creature, oldPosition);
-        Add(creature, newPosition);
-    }
+        public override void Add(IMappable mappable, Point position)
+        {
+            if (!Exist(position))
+                throw new ArgumentOutOfRangeException("Position is outside the map bounds.");
 
-    // Sprawdzanie, jakie stwory są w danym punkcie
-    public override List<Creature> At(Point position)
-    {
-        return _creaturesAtPosition.ContainsKey(position) ? _creaturesAtPosition[position] : new List<Creature>();
-    }
+            if (!_mappablesAtPosition.ContainsKey(position))
+                _mappablesAtPosition[position] = new List<IMappable>();
 
-    // Sprawdzanie, jakie stwory są w danym punkcie (z parametrami X, Y)
-    public List<Creature> At(int x, int y)
-    {
-        return At(new Point(x, y));
-    }
+            _mappablesAtPosition[position].Add(mappable);
+        }
 
-    // Implementacja metod Next i NextDiagonal
-    public override Point Next(Point p, Direction d)
-    {
-        return p.Next(d);
-    }
+        public override void Remove(IMappable mappable, Point position)
+        {
+            if (_mappablesAtPosition.ContainsKey(position))
+            {
+                _mappablesAtPosition[position].Remove(mappable);
+            }
+        }
 
-    public override Point NextDiagonal(Point p, Direction d)
-    {
-        return p.NextDiagonal(d);
+        public override void Move(IMappable mappable, Point oldPosition, Point newPosition)
+        {
+            Remove(mappable, oldPosition);
+            Add(mappable, newPosition);
+        }
+
+        public override List<IMappable> At(Point position)
+        {
+            return _mappablesAtPosition.ContainsKey(position) ? _mappablesAtPosition[position] : new List<IMappable>();
+        }
+
+        public override Point Next(Point p, Direction d)
+        {
+            return p.Next(d);
+        }
+
+        public override Point NextDiagonal(Point p, Direction d)
+        {
+            return p.NextDiagonal(d);
+        }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Simulator
 {
-    public abstract class Creature
+    public abstract class Creature : IMappable
     {
         private string name = "Unknown";
         public string Name
@@ -54,7 +54,6 @@ namespace Simulator
 
             if (CurrentMap.Exist(newPosition))
             {
-                
                 CurrentMap.Move(this, CurrentPosition, newPosition);
                 CurrentPosition = newPosition;
                 return $"Moved {direction.ToString().ToLower()} to {newPosition}.";
