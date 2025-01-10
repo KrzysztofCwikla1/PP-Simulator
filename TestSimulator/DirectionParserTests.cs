@@ -1,4 +1,5 @@
 using Simulator;
+
 namespace TestSimulator;
 
 public class DirectionParserTests
@@ -8,13 +9,19 @@ public class DirectionParserTests
     {
         // Arrange
         string input = "URDL";
+        var expected = new List<Direction>
+        {
+            Direction.Up,
+            Direction.Right,
+            Direction.Down,
+            Direction.Left
+        };
+
         // Act
         var result = DirectionParser.Parse(input);
+
         // Assert
-        Assert.Equal([Direction.Up, Direction.Right,
-            Direction.Down, Direction.Left],
-            result
-        );
+        Assert.Equal(expected, result);
     }
 
     [Fact]
@@ -22,40 +29,47 @@ public class DirectionParserTests
     {
         // Arrange
         string input = "urdl";
+        var expected = new List<Direction>
+        {
+            Direction.Up,
+            Direction.Right,
+            Direction.Down,
+            Direction.Left
+        };
+
         // Act
         var result = DirectionParser.Parse(input);
+
         // Assert
-        Assert.Equal([Direction.Up, Direction.Right,
-            Direction.Down, Direction.Left],
-            result
-        );
+        Assert.Equal(expected, result);
     }
 
     [Fact]
-    public void Parse_ShouldReturnEmptyArrayForEmptyString()
+    public void Parse_ShouldReturnEmptyListForEmptyString()
     {
         // Arrange
         string input = "";
+        var expected = new List<Direction>(); // Oczekiwana pusta lista
+
         // Act
         var result = DirectionParser.Parse(input);
+
         // Assert
-        Assert.Empty(result);
+        Assert.Empty(result); // Mo¿na równie¿ porównaæ do oczekiwanej pustej listy
+        Assert.Equal(expected, result);
     }
 
     [Theory]
-    [InlineData("urdlx", new[] { Direction.Up, Direction.Right,
-        Direction.Down, Direction.Left })]
-    [InlineData("xxxdR lyyLTyu", new[] { Direction.Down,
-         Direction.Right, Direction.Left, Direction.Left,
-         Direction.Up })]
-
-    public void Parse_ShouldIgnoreInvalidCharacters(string s,
-        Direction[] expected)
+    [InlineData("urdlx", new[] { Direction.Up, Direction.Right, Direction.Down, Direction.Left })]
+    [InlineData("xxxdR lyyLTyu", new[] { Direction.Down, Direction.Right, Direction.Left, Direction.Left, Direction.Up })]
+    public void Parse_ShouldIgnoreInvalidCharacters(string input, Direction[] expectedArray)
     {
-        // Arrange 
-        // use [Theory] [InlineData] to check multiple sets of data
+        // Arrange
+        var expected = new List<Direction>(expectedArray); // Konwersja tablicy na listê
+
         // Act
-        var result = DirectionParser.Parse(s);
+        var result = DirectionParser.Parse(input);
+
         // Assert
         Assert.Equal(expected, result);
     }

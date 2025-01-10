@@ -45,5 +45,16 @@ public abstract class Creature
         var directions = DirectionParser.Parse(input);
         return Go(directions); 
     }
+    public string[] Go(List<Direction> directions)
+    {
+        var results = new List<string>();
+
+        foreach (var direction in directions)
+        {
+            results.Add($"Moved {direction}");
+        }
+
+        return results.ToArray();
+    }
     public override string ToString() => $"{GetType().Name.ToUpper()}: {Info}";
 }

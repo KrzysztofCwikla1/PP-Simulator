@@ -5,7 +5,7 @@ namespace Tests
     public class ValidatorTests
     {
         [Theory]
-        [InlineData(3, 5, 10, 7)]
+        [InlineData(3, 5, 10, 5)]
         [InlineData(12, 5, 10, 10)]
         [InlineData(2, 5, 10, 5)]
         public void TestLimiter(int value, int min, int max, int expected)

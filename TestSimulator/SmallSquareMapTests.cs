@@ -8,9 +8,15 @@ namespace Tests
         [Fact]
         public void TestSmallSquareMapCreation()
         {
-            var map = new SmallSquareMap(10);
+            // Arrange
+            int size = 10;
 
-            Assert.Equal(10, map.Size);
+            // Act
+            var map = new SmallSquareMap(size);
+
+            // Assert
+            Assert.Equal(size, map.SizeX);  
+            Assert.Equal(size, map.SizeY);  
         }
 
         [Fact]
@@ -105,11 +111,11 @@ namespace Tests
         {
             
             var ex = Assert.Throws<ArgumentOutOfRangeException>(() => new SmallSquareMap(3));
-            Assert.Contains("Map size must be between 5 and 20.", ex.Message);
+            Assert.Contains("Map can't be smaller than 5x5.", ex.Message);
 
            
             ex = Assert.Throws<ArgumentOutOfRangeException>(() => new SmallSquareMap(21));
-            Assert.Contains("Map size must be between 5 and 20.", ex.Message);
+            Assert.Contains("SmallMap size can't exceed 20x20.", ex.Message);
         }
 
     }
