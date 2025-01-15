@@ -33,29 +33,18 @@ internal class Program
         string moves = "dlrludllurdlurrr";
 
         Simulation simulation = new(map, mappables, positions, moves);
+        SimulationHistory history = new(simulation);
 
-        MapVisualizer mapVisualizer = new(simulation.Map);
+        LogVisualizer logVisualizer = new(history);
 
-        while (!simulation.Finished)
+        for (int i = 0; i < history.TurnLogs.Count; i++)
         {
-            mapVisualizer.Draw(simulation);
-
-            Console.WriteLine("\nPress any key to proceed to the next step...");
+            logVisualizer.Draw(i);
+            Console.WriteLine("\nPress any key to proceed to the next turn...");
             Console.ReadKey();
-
-            try
-            {
-                simulation.Turn();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error during simulation: {ex.Message}");
-                break;
-            }
         }
 
-        mapVisualizer.Draw(simulation);
-        Console.WriteLine("\nSimulation finished. Press any key to exit.");
+        Console.WriteLine("Visualization complete. Press any key to exit.");
         Console.ReadKey();
     }
 }
