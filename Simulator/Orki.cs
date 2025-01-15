@@ -23,7 +23,7 @@ public class Orc : Creature
             return $"{Name} [{Level}][{Rage}]";
         }
     }
-
+    public override char Symbol => 'O';
     private int huntCounter;
     public void Hunt()
     {

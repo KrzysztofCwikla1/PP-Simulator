@@ -82,6 +82,7 @@ public class SmallMapTests
 // Testowa klasa dziedzicząca po Creature w celu zaimplementowania abstrakcyjnych metod
 public class TestCreature : Creature
 {
+    public override char Symbol => 'T';
     public TestCreature(string name, int level = 1) : base(name, level) { }
 
     public override string Info => "Test Creature Info";

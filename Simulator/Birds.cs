@@ -9,7 +9,7 @@ public class Birds : Animals
     {
         get => $"{Description} (fly{(CanFly ? "+" : "-")}) <{Size}>";
     }
-
+    public new char Symbol => CanFly ? 'B' : 'b';
     public override string Go(Direction direction)
     {
         if (CurrentMap == null)

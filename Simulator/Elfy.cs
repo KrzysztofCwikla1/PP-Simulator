@@ -31,7 +31,7 @@ public class Elf : Creature
             return $"{Name} [{Level}][{Agility}]";
         }
     }
-
+    public override char Symbol => 'E';
     public int singCounter;
     public void Sing()
     {

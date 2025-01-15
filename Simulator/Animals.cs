@@ -16,7 +16,7 @@ public class Animals : IMappable
 
     public uint Size { get; set; } = 3;
     public virtual string Info => $"{Description} <{Size}>";
-
+    public char Symbol => 'A';
     public Map? CurrentMap { get; protected set; }
     public Point CurrentPosition { get; protected set; }
 
