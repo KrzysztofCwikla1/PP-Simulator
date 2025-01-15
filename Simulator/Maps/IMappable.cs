@@ -10,5 +10,8 @@ public interface IMappable
     void AssignMap(Map map, Point startPosition);
     string Go(Direction direction);
     string Info { get; }
+    public char Symbol { get; } // umowny symbol obiektu
+    public string ToString();
+    // sugerujemy override, bo object.ToString() zwraca string?
 }
 
