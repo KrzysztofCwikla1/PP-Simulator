@@ -1,0 +1,46 @@
+﻿@page
+@using SimConsole.Pages
+@model VisualizationModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map Visualization</title>
+    <link rel="stylesheet" href="css/site.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+
+</head>
+<body>
+    <div class="visualization-container">
+        <h1>Map Visualization</h1>
+        <p>Current Turn: @Model.CurrentTurn</p>
+        <div class="controls">
+            <button onclick="changeTurn(-1)" disabled="@Model.IsFirstTurn">Previous Turn</button>
+            <button onclick="changeTurn(1)" disabled="@Model.IsLastTurn">Next Turn</button>
+        </div>
+        <div class="map" style="grid-template-columns: repeat(@Model.MapWidth, 1fr); grid-template-rows: repeat(@Model.MapHeight, 1fr);">
+            
+            @for (int y = 0; y < Model.MapHeight; y++)
+            {
+               
+
+                @for (int x = 0; x < Model.MapWidth; x++)
+                {
+                    char symbol = Model.GetSymbol(x, y);
+                    <div>@symbol</div>
+                }
+            }
+        </div>
+        <p>@Model.MoveInfo</p>
+    </div>
+
+    <script>
+        function changeTurn(delta) {
+            const url = `/Visualization?turn=${@Model.CurrentTurn + delta}`;
+            window.location.href = url;
+        }
+    </script>
+</body>
+</html>

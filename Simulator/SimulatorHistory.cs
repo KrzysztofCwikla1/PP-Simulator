@@ -15,7 +15,6 @@ public class SimulationHistory
 
         Run();
     }
-
     private void Run()
     {
         // Save the initial state

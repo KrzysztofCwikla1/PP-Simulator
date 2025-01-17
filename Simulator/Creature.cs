@@ -69,6 +69,6 @@ namespace Simulator
             map.Add(this, startPosition);
         }
 
-        public override string ToString() => $"{GetType().Name.ToUpper()}: {Info}";
+        public override string ToString() => $"{GetType().Name.ToUpper()}: {CurrentPosition}";
     }
 }

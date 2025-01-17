@@ -6,6 +6,7 @@ public class LogVisualizer
 {
     private SimulationHistory Log { get; }
 
+
     public LogVisualizer(SimulationHistory log)
     {
         Log = log ?? throw new ArgumentNullException(nameof(log));
@@ -19,10 +20,6 @@ public class LogVisualizer
         }
 
         var turnLog = Log.TurnLogs[turnIndex];
-
-        Console.WriteLine($"\nTurn: {turnIndex + 1}");
-        Console.WriteLine($"{turnLog.Mappable} goes {turnLog.Move}");
-
         int width = Log.SizeX;
         int height = Log.SizeY;
 
@@ -65,5 +62,7 @@ public class LogVisualizer
             if (i < width - 1) Console.Write(Box.BottomMid);
         }
         Console.WriteLine(Box.BottomRight);
+
     }
+
 }
