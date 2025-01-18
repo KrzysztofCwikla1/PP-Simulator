@@ -10,6 +10,7 @@ public class Birds : Animals
         get => $"{Description} (fly{(CanFly ? "+" : "-")}) <{Size}>";
     }
     public override char Symbol => CanFly ? 'B' : 'b';
+    public override string Icon => CanFly ? "🦅" : "🐦";
     public override string Go(Direction direction)
     {
         if (CurrentMap == null)

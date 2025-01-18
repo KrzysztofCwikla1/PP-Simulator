@@ -6,7 +6,7 @@ public interface IMappable
     int Level { get; }
     
     Map? CurrentMap { get; set; }
-
+    public string Icon { get; }
     void AssignMap(Map map, Point startPosition);
     string Go(Direction direction);
     string Info { get; }

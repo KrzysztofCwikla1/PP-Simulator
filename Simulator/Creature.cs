@@ -37,14 +37,17 @@ namespace Simulator
         }
 
         public Creature() { }
-
+        public abstract string Icon { get; }
         public abstract string Info { get; }
         public abstract string Greeting();
         public abstract int Power { get; }
         public abstract char Symbol { get; }
         public Map? CurrentMap { get; set; }
         public Point CurrentPosition { get; set; }
-
+        public string GetIcon()
+        {
+            throw new NotImplementedException();
+        }
         public string Go(Direction direction)
         {
             if (CurrentMap == null)

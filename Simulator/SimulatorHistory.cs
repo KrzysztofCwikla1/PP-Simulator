@@ -6,7 +6,7 @@ public class SimulationHistory
     public int SizeX { get; }
     public int SizeY { get; }
     public List<SimulationTurnLog> TurnLogs { get; } = new();
-
+   
     public SimulationHistory(Simulation simulation)
     {
         _simulation = simulation ?? throw new ArgumentNullException(nameof(simulation));
@@ -32,7 +32,7 @@ public class SimulationHistory
     {
         // Create a dictionary representing the current map state
         var symbols = new Dictionary<Point, char>();
-
+        var icons = new Dictionary<Point, string>();
         for (int y = 0; y < SizeY; y++)
         {
             for (int x = 0; x < SizeX; x++)
@@ -48,17 +48,31 @@ public class SimulationHistory
                     _ => 'X'
                 };
 
-                if (symbol != ' ')
+               if (symbol != ' ')
                     symbols[point] = symbol;
+
+                string icon = mappablesAtPosition.Count switch
+                {
+                    0 => " ",
+                    1 => mappablesAtPosition[0].Icon,
+
+                    _ => "⚔️"
+                };
+                if (icon != " ")
+                    icons[point] = icon;
             }
         }
+        
 
         // Create and return the turn log
         return new SimulationTurnLog
         {
             Mappable = _simulation.CurrentMappable.ToString(),
             Move = _simulation.CurrentMoveName,
-            Symbols = symbols
+            Symbols = symbols,
+            Icons = icons
         };
-    }
 }
+}
+
+

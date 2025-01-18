@@ -10,7 +10,7 @@ namespace Simulator;
 public class Elf : Creature
 {
     private int agility;
-
+    public override string Icon => "🧝";
     public int Agility
     {
         get { return agility; }

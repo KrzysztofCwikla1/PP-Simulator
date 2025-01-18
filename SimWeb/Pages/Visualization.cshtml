@@ -14,6 +14,7 @@
     <div class="visualization-container">
         <h1>Map Visualization</h1>
         <p>Current Turn: @Model.CurrentTurn</p>
+        <p>@Model.MoveInfo</p>
         <div class="controls">
             <a href="?turn=@(Model.CurrentTurn - 1)&moves=@Model.Moves"
                class="btn btn-primary"
@@ -31,12 +32,14 @@
             {
                 @for (int x = 0; x < Model.MapWidth; x++)
                 {
-                    char symbol = Model.GetSymbol(x, y);
-                    <div>@symbol</div>
+                   // char symbol = Model.GetSymbol(x, y);
+                    //<div>@symbol</div>
+                    string icon = Model.GetIcon(x, y);
+                    <div>@icon</div>
                 }
             }
         </div>
-        <p>@Model.MoveInfo</p>
+
     </div>
 </body>
 </html>

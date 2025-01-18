@@ -14,7 +14,12 @@ public class VisualizationModel : PageModel
     public string MoveInfo { get; private set; }
     public bool IsFirstTurn => CurrentTurn == 0;
     public bool IsLastTurn => CurrentTurn == SimulationHistory.TurnLogs.Count - 1;
-
+    public string GetIcon(int x, int y)
+    {
+        var log = SimulationHistory.TurnLogs[CurrentTurn];
+        var point = new Point(x, y);
+        return log.Icons.ContainsKey(point) ? log.Icons[point] : " ";
+    }
 
     public char GetSymbol(int x, int y)
     {

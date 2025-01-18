@@ -38,7 +38,9 @@ public class LogVisualizer
             {
                 Point position = new Point(x, y);
                 char symbol = turnLog.Symbols.ContainsKey(position) ? turnLog.Symbols[position] : ' ';
+                var icon = turnLog.Icons.ContainsKey(position) ? turnLog.Icons[position] : " ";
                 Console.Write(symbol);
+                Console.Write(icon);
                 Console.Write(Box.Vertical);
             }
             Console.WriteLine();
