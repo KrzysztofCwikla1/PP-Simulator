@@ -57,6 +57,15 @@ public class VisualizationModel : PageModel
 
         // Ustaw aktualną turę na podstawie parametru lub domyślnie na 0
         CurrentTurn = turn ?? 0;
+        // Sprawdzamy, czy CurrentTurn mieści się w poprawnym zakresie
+        if (CurrentTurn < 0)
+        {
+            CurrentTurn = 0;
+        }
+        else if (CurrentTurn >= SimulationHistory.TurnLogs.Count)
+        {
+            CurrentTurn = SimulationHistory.TurnLogs.Count - 1;
+        }
 
         // Pobierz informacje o bieżącej turze
         SimulationTurnLog turnLog = SimulationHistory.TurnLogs[CurrentTurn];
