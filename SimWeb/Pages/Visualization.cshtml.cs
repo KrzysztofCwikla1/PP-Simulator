@@ -24,7 +24,7 @@ public class VisualizationModel : PageModel
     }
 
     [BindProperty(SupportsGet = true)]
-    public string Moves { get; set; } = "dlrludllurdlurrr"; // Domyślna wartość
+    public string Moves { get; set; } = "dlrludllurdlurrr";
 
     private void InitializeSimulation(string moves)
     {
@@ -51,13 +51,11 @@ public class VisualizationModel : PageModel
     {
         if (SimulationHistory == null)
         {
-            // Zainicjalizuj symulację przy użyciu sekwencji ruchów
             InitializeSimulation(Moves);
         }
 
-        // Ustaw aktualną turę na podstawie parametru lub domyślnie na 0
         CurrentTurn = turn ?? 0;
-        // Sprawdzamy, czy CurrentTurn mieści się w poprawnym zakresie
+        
         if (CurrentTurn < 0)
         {
             CurrentTurn = 0;
@@ -67,7 +65,6 @@ public class VisualizationModel : PageModel
             CurrentTurn = SimulationHistory.TurnLogs.Count - 1;
         }
 
-        // Pobierz informacje o bieżącej turze
         SimulationTurnLog turnLog = SimulationHistory.TurnLogs[CurrentTurn];
         MoveInfo = $"{turnLog.Mappable} goes {DirectionParser.FullDirectionName(DirectionParser.Parse(turnLog.Move)[0])}";
     }

@@ -1,28 +1,50 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace SimConsole.Pages;
 
-public class IndexModel : PageModel
+namespace SimConsole.Pages
 {
-    [BindProperty]
-    public string MoveSequence { get; set; } = "dlrludllurdlurrr"; // Domyœlna wartoœæ sekwencji
-
-    public void OnGet()
+    public class IndexModel : PageModel
     {
-        // Nic nie robi - tylko wyœwietla stronê
-    }
+        [BindProperty]
+        public string MoveSequence { get; set; } = "dlrludllurdlurrr"; 
 
-    public IActionResult OnPost()
-    {
-        if (MoveSequence.Length != 15 || !MoveSequence.All(c => "drlu".Contains(c)))
+        private string GenerateRandomSequence(int length)
         {
-            ModelState.AddModelError(nameof(MoveSequence), "Move sequence must be 15 characters long and contain only d, r, u, or l.");
-            return Page();
+            var random = new Random();
+            const string allowedChars = "drlu";
+            return new string(Enumerable.Repeat(allowedChars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
-        // Przekierowanie do strony wizualizacji z sekwencj¹ ruchów jako parametr
-        return RedirectToPage("Visualization", new { moves = MoveSequence });
+        public void OnGet()
+        {
+
+        }
+
+        public IActionResult OnPost()
+        {
+            var action = Request.Form["action"];
+            if (action == "StartSimulation")
+            {
+
+                if (MoveSequence.Length != 15 || !MoveSequence.All(c => "drlu".Contains(c)))
+                {
+                    ModelState.AddModelError(nameof(MoveSequence), "Move sequence must be 15 characters long and contain only d, r, u, or l.");
+                    return Page();
+                }
+
+
+                return RedirectToPage("Visualization", new { moves = MoveSequence });
+            }
+            else if (action == "GenerateSequence")
+            {
+
+                MoveSequence = GenerateRandomSequence(15);
+                return Page();
+            }
+
+            return Page();
+        }
     }
 }
-

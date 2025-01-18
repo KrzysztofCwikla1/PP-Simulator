@@ -15,8 +15,10 @@
         <p>Enter a move sequence (15 characters of d, r, u, l):</p>
         <form method="post">
             <input type="text" name="MoveSequence" value="@Model.MoveSequence" maxlength="15" required />
-            <button type="submit">Start Simulation</button>
+            <button type="submit" name="action" value="StartSimulation">Start Simulation</button>
+            <button type="submit" name="action" value="GenerateSequence">Generate Random Sequence</button>
         </form>
+
         @if (!ViewData.ModelState.IsValid)
         {
             <p style="color: red;">@ViewData.ModelState[nameof(Model.MoveSequence)]?.Errors.FirstOrDefault()?.ErrorMessage</p>
