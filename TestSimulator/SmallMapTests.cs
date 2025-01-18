@@ -88,4 +88,6 @@ public class TestCreature : Creature
     public override string Info => "Test Creature Info";
     public override string Greeting() => "Hello!";
     public override int Power => 10;
+
+    public override string Icon => throw new NotImplementedException();
 }

@@ -32,6 +32,7 @@ public class SimulationHistory
     {
         // Create a dictionary representing the current map state
         var symbols = new Dictionary<Point, char>();
+        var icons = new Dictionary<Point, string>();
 
         for (int y = 0; y < SizeY; y++)
         {
@@ -40,16 +41,27 @@ public class SimulationHistory
                 var point = new Point(x, y);
                 var mappablesAtPosition = _simulation.Map.At(point);
 
-                char symbol = mappablesAtPosition.Count switch
-                {
-                    0 => ' ',
-                    1 => mappablesAtPosition[0].Symbol,
+                //char symbol = mappablesAtPosition.Count switch
+                //{
+                //    0 => ' ',
+                //    1 => mappablesAtPosition[0].Symbol,
 
-                    _ => 'X'
+                //    _ => 'X'
+                //};
+
+                //if (symbol != ' ')
+                //    symbols[point] = symbol;
+
+                string icon = mappablesAtPosition.Count switch
+                {
+                    0 => " ",
+                    1 => mappablesAtPosition[0].Icon,
+
+                    _ => "X"
                 };
 
-                if (symbol != ' ')
-                    symbols[point] = symbol;
+                if (icon != " ")
+                    icons[point] = icon;
             }
         }
 
@@ -58,7 +70,8 @@ public class SimulationHistory
         {
             Mappable = _simulation.CurrentMappable.ToString(),
             Move = _simulation.CurrentMoveName,
-            Symbols = symbols
+            Symbols = symbols,
+            Icons = icons
         };
     }
 }
