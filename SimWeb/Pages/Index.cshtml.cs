@@ -1,20 +1,28 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace SimWeb.Pages
+namespace SimConsole.Pages;
+
+public class IndexModel : PageModel
 {
-    public class IndexModel : PageModel
+    [BindProperty]
+    public string MoveSequence { get; set; } = "dlrludllurdlurrr"; // Domyœlna wartoœæ sekwencji
+
+    public void OnGet()
     {
-        private readonly ILogger<IndexModel> _logger;
+        // Nic nie robi - tylko wyœwietla stronê
+    }
 
-        public IndexModel(ILogger<IndexModel> logger)
+    public IActionResult OnPost()
+    {
+        if (MoveSequence.Length != 15 || !MoveSequence.All(c => "drlu".Contains(c)))
         {
-            _logger = logger;
+            ModelState.AddModelError(nameof(MoveSequence), "Move sequence must be 15 characters long and contain only d, r, u, or l.");
+            return Page();
         }
 
-        public void OnGet()
-        {
-
-        }
+        // Przekierowanie do strony wizualizacji z sekwencj¹ ruchów jako parametr
+        return RedirectToPage("Visualization", new { moves = MoveSequence });
     }
 }
+

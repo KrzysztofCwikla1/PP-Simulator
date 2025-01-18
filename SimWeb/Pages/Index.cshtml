@@ -1,10 +1,26 @@
 ﻿@page
-@model IndexModel
-@{
-    ViewData["Title"] = "Home page";
-}
+@model SimConsole.Pages.IndexModel
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to SimWeb</h1>
-    <p>Current Similation: dlrludllurdlurrr.</p>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="css/site.css" />
+</head>
+<body>
+    <div class="text-center">
+        <h1 class="display-4">Welcome to SimWeb</h1>
+        <p>Enter a move sequence (15 characters of d, r, u, l):</p>
+        <form method="post">
+            <input type="text" name="MoveSequence" value="@Model.MoveSequence" maxlength="15" required />
+            <button type="submit">Start Simulation</button>
+        </form>
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <p style="color: red;">@ViewData.ModelState[nameof(Model.MoveSequence)]?.Errors.FirstOrDefault()?.ErrorMessage</p>
+        }
+    </div>
+</body>
+</html>

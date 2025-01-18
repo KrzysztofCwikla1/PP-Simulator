@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc;
 using Simulator;
 using Simulator.Maps;
-using SimConsole;
+
 namespace SimConsole.Pages;
 
 public class VisualizationModel : PageModel
@@ -10,15 +11,9 @@ public class VisualizationModel : PageModel
     public int CurrentTurn { get; private set; }
     public int MapWidth => SimulationHistory.SizeX;
     public int MapHeight => SimulationHistory.SizeY;
-    public string FormatMoveInfo(SimulationTurnLog turnLog)
-    {
-        var mappableInfo = turnLog.Mappable;
-        var direction = DirectionParser.FullDirectionName(DirectionParser.Parse(turnLog.Move)[0]);
-        return $"{mappableInfo} goes {direction}";
-    }
+    public string MoveInfo { get; private set; }
     public bool IsFirstTurn => CurrentTurn == 0;
     public bool IsLastTurn => CurrentTurn == SimulationHistory.TurnLogs.Count - 1;
-    public string MoveInfo { get; private set; }
 
 
     public char GetSymbol(int x, int y)
@@ -28,9 +23,11 @@ public class VisualizationModel : PageModel
         return log.Symbols.ContainsKey(point) ? log.Symbols[point] : ' ';
     }
 
-    public VisualizationModel()
-    {
+    [BindProperty(SupportsGet = true)]
+    public string Moves { get; set; } = "dlrludllurdlurrr"; // Domyślna wartość
 
+    private void InitializeSimulation(string moves)
+    {
         var map = new SmallTorusMap(8, 6);
         var mappables = new List<IMappable>
         {
@@ -46,19 +43,23 @@ public class VisualizationModel : PageModel
             new(2, 2), new(3, 1), new(3, 3), new(4, 4), new(5, 5)
         };
 
-        var simulation = new Simulation(map, mappables, positions, "dlrludllurdlurrr");
+        var simulation = new Simulation(map, mappables, positions, moves);
         SimulationHistory = new SimulationHistory(simulation);
-
-        CurrentTurn = 0;
     }
 
     public void OnGet(int? turn)
     {
+        if (SimulationHistory == null)
+        {
+            // Zainicjalizuj symulację przy użyciu sekwencji ruchów
+            InitializeSimulation(Moves);
+        }
+
+        // Ustaw aktualną turę na podstawie parametru lub domyślnie na 0
         CurrentTurn = turn ?? 0;
 
-
+        // Pobierz informacje o bieżącej turze
         SimulationTurnLog turnLog = SimulationHistory.TurnLogs[CurrentTurn];
-
-        MoveInfo = FormatMoveInfo(turnLog);
+        MoveInfo = $"{turnLog.Mappable} goes {DirectionParser.FullDirectionName(DirectionParser.Parse(turnLog.Move)[0])}";
     }
 }
