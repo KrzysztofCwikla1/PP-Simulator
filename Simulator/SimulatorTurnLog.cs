@@ -18,6 +18,5 @@ public class SimulationTurnLog
     /// Dictionary of IMappable.Symbol on the map in this turn.
     /// </summary>
     public required Dictionary<Point, char> Symbols { get; init; }
-    public required Dictionary<Point, string> Icons { get; init; }
     public object? CurrentMappable { get; set; }
 }

@@ -23,13 +23,6 @@ public class VisualizationModel : PageModel
         return log.Symbols.ContainsKey(point) ? log.Symbols[point] : ' ';
     }
 
-    public string GetIcon(int x, int y)
-    {
-        var log = SimulationHistory.TurnLogs[CurrentTurn];
-        var point = new Point(x, y);
-        return log.Icons.ContainsKey(point) ? log.Icons[point] : " ";
-    }
-
     [BindProperty(SupportsGet = true)]
     public string Moves { get; set; } = "dlrludllurdlurrr"; // Domyślna wartość
 

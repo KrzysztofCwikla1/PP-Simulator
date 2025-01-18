@@ -5,14 +5,11 @@ public class Birds : Animals
 {
     public bool CanFly { get; set; } = true;
 
-    
-
     public override string Info
     {
         get => $"{Description} (fly{(CanFly ? "+" : "-")}) <{Size}>";
     }
     public override char Symbol => CanFly ? 'B' : 'b';
-    public override string Icon => CanFly ? "🦅" : "🐦";
     public override string Go(Direction direction)
     {
         if (CurrentMap == null)
@@ -39,5 +36,4 @@ public class Birds : Animals
 
         return "Bird cannot move outside the map boundaries.";
     }
-
 }

@@ -3,8 +3,6 @@
 public class Orc : Creature
 {
     private int rage;
-
- 
     public int Rage
     { 
         get { return rage; }
@@ -26,7 +24,6 @@ public class Orc : Creature
         }
     }
     public override char Symbol => 'O';
-    public override string Icon => "👹";
     private int huntCounter;
     public void Hunt()
     {

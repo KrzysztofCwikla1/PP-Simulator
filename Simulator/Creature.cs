@@ -42,7 +42,6 @@ namespace Simulator
         public abstract string Greeting();
         public abstract int Power { get; }
         public abstract char Symbol { get; }
-        public abstract string Icon { get; }
         public Map? CurrentMap { get; set; }
         public Point CurrentPosition { get; set; }
 
@@ -71,10 +70,5 @@ namespace Simulator
         }
 
         public override string ToString() => $"{GetType().Name.ToUpper()}: {CurrentPosition}";
-
-        public string GetIcon()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

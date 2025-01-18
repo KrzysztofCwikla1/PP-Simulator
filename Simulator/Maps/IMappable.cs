@@ -11,10 +11,6 @@ public interface IMappable
     string Go(Direction direction);
     string Info { get; }
     public char Symbol { get; } // umowny symbol obiektu
-    public string Icon { get; }
-
-
-
     Point CurrentPosition { get; set; }
 
     public string ToString();

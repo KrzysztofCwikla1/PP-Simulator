@@ -11,7 +11,6 @@ public class Elf : Creature
 {
     private int agility;
 
-   
     public int Agility
     {
         get { return agility; }
@@ -33,7 +32,6 @@ public class Elf : Creature
         }
     }
     public override char Symbol => 'E';
-    public override string Icon => "🧝";
     public int singCounter;
     public void Sing()
     {

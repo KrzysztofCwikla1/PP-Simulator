@@ -17,7 +17,6 @@ public class Animals : IMappable
     public uint Size { get; set; } = 3;
     public virtual string Info => $"{Description} <{Size}>";
     public virtual char Symbol => 'A';
-    public virtual string Icon => "🐾";
     public Map? CurrentMap { get; protected set; }
     public Point CurrentPosition { get; protected set; }
 
@@ -69,6 +68,4 @@ public class Animals : IMappable
     }
 
     public override string ToString() => $"{GetType().Name.ToUpper()}: {Info} {CurrentPosition}";
-
-   
 }
